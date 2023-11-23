@@ -4,10 +4,6 @@ import prisma from './prismadb'
 import { revalidatePath } from 'next/cache'
 
 
-const todoObject = zod.object({
-    title: zod.string().min(1, { message: "Todo Title is required" })
-})
-
 export const createTodo = async (formData: FormData) => {
     const schema = zod.object({
         title: zod.string().min(1, { message: 'Todo Title is required' })
