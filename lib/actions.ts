@@ -8,11 +8,30 @@ const todoObject = zod.object({
     title: zod.string().min(1, { message: "Todo Title is required" })
 })
 
-export const createTodo = async (data: FormData) => {
-
-    const { title } = todoObject.parse({
-        title: data.get('title')
+export const createTodo = async (formData: FormData) => {
+    const schema = zod.object({
+        title: zod.string().min(1, { message: 'Todo Title is required' })
     })
-    await prisma.todo.create({ data: { title: title } })
-    revalidatePath('/')
+
+    const { title } = schema.parse({
+        title: formData.get('title'),
+    })
+    try {
+        await prisma.todo.create({ data: { title } })
+        revalidatePath('/');
+        return { message: 'Added Todo Successfully.' }
+    } catch {
+        return { message: 'Failed to create todo.' }
+    }
+}
+
+export async function deleteTodo(id: string) {
+    try {
+        await prisma.todo.delete({ where: { id } })
+
+        revalidatePath('/')
+        return { message: `Deleted todo` }
+    } catch (e) {
+        return { message: 'Failed to delete todo' }
+    }
 }
