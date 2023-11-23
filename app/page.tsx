@@ -2,7 +2,6 @@ import { DeleteForm } from "@/components/delete-form";
 import { createTodo } from "@/lib/actions";
 import prisma from "@/lib/prismadb";
 import { Todo } from "@prisma/client";
-import { Trash } from "lucide-react";
 
 const getTodo = async () => {
   const data = await prisma.todo.findMany();
