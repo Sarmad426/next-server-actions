@@ -31,7 +31,7 @@ export default async function Home() {
           return (
             <div key={todo.id}>
               <span className="peer-checked:line-through">{todo.title}</span>
-              <DeleteForm id={todo.id} title={todo.title} />
+              <DeleteForm id={todo.id} />
             </div>
           );
         })}
