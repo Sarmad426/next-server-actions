@@ -7,9 +7,9 @@ const getTodo = async () => {
   return data;
 };
 export default async function Home() {
-  const data: Todo[] = await getTodo();
+  const todos: Todo[] = await getTodo();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 text-white">
+    <main className="flex my-24 flex-col items-center justify-between p-24 text-white">
       <form
         action={createTodo}
         className="flex items-center justify-center gap-x-5"
@@ -24,6 +24,12 @@ export default async function Home() {
           Submit
         </button>
       </form>
+      <h2 className="text-2xl font-bold">Todos</h2>
+      <div className="flex items-center justify-normal gap-4">
+        {todos.map((todo) => {
+          return <div key={todo.id}>{todo.title}</div>;
+        })}
+      </div>
     </main>
   );
 }
