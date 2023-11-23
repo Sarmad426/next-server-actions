@@ -1,19 +1,21 @@
 'use server'
 
 
-import zod from 'zod'
+import { z } from 'zod'
 import prisma from './prismadb'
 import { revalidatePath } from 'next/cache'
 
 
+const schema = z.object({
+    title: z.string().min(1, { message: 'Todo Title is required' })
+})
+
 export const createTodo = async (formData: FormData) => {
-    const schema = zod.object({
-        title: zod.string().min(1, { message: 'Todo Title is required' })
-    })
 
     const { title } = schema.parse({
         title: formData.get('title'),
     })
+
     try {
         await prisma.todo.create({ data: { title } })
         revalidatePath('/');
