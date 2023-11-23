@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Next.js Server actions",
-  description: "Next.js 14 Server actions",
+  description: "Todo list app | Next.js 14 Server actions",
 };
 
 export default function RootLayout({
