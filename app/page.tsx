@@ -1,6 +1,8 @@
+import { DeleteForm } from "@/components/delete-form";
 import { createTodo } from "@/lib/actions";
 import prisma from "@/lib/prismadb";
 import { Todo } from "@prisma/client";
+import { Trash } from "lucide-react";
 
 const getTodo = async () => {
   const data = await prisma.todo.findMany();
@@ -24,10 +26,15 @@ export default async function Home() {
           Submit
         </button>
       </form>
-      <h2 className="text-2xl font-bold">Todos</h2>
-      <div className="flex items-center justify-normal gap-4">
+      <h2 className="text-2xl font-bold my-5">Todos</h2>
+      <div className="flex flex-col items-center justify-normal gap-4 my-12">
         {todos.map((todo) => {
-          return <div key={todo.id}>{todo.title}</div>;
+          return (
+            <div key={todo.id}>
+              <span className="peer-checked:line-through">{todo.title}</span>
+              <DeleteForm id={todo.id} title={todo.title} />
+            </div>
+          );
         })}
       </div>
     </main>
